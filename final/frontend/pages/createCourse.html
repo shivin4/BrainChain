@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Course</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Create Course</h1>
+        <nav>
+            <a href="adminDashboard.html">Back to Dashboard</a>
+        </nav>
+    </header>
+    <main>
+        <form id="createCourseForm">
+            <label>Title</label>
+            <input type="text" id="title" required>
+            <label>Description</label>
+            <textarea id="description" required></textarea>
+            <label>Price</label>
+            <input type="number" id="price" required>
+            <label>Image URL</label>
+            <input type="url" id="imageUrl">
+            <button type="submit">Create Course</button>
+        </form>
+    </main>
+    <script src="../js/adminDashboard.js"></script>
+    <script>
+        document.getElementById('createCourseForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            createCourse(
+                document.getElementById('title').value,
+                document.getElementById('description').value,
+                document.getElementById('price').value,
+                document.getElementById('imageUrl').value
+            );
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <nav>
+            <a href="createCourse.html">Create Course</a>
+            <a href="../index.html">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Your Courses</h2>
+        <ul id="courseList"></ul>
+    </main>
+    <script src="../js/adminDashboard.js"></script>
+    <script>
+        async function fetchCourses() {
+            const token = localStorage.getItem('adminAuthToken');
+            const response = await fetch('http://localhost:3000/api/v1/admin/course/bulk', {
+                headers: { 'token': token }
+            });
+            const data = await response.json();
+            const courseList = document.getElementById('courseList');
+
+            data.courses.forEach(course => {
+                const li = document.createElement('li');
+                li.textContent = `${course.title} - Rs${course.price}`;
+                courseList.appendChild(li);
+            });
+        }
+        fetchCourses();
+    </script>
+</body>
+</html>

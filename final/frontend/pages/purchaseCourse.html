@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Course</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Purchase Course</h1>
+        <nav>
+            <a href="userDashboard.html">Back to Dashboard</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Available Courses</h2>
+        <ul id="availableCoursesList"></ul>
+    </main>
+    <script src="../js/userDashboard.js"></script>
+    <script>
+        async function fetchCourses() {
+            const response = await fetch('http://localhost:3000/api/v1/course/preview');
+            const data = await response.json();
+            const list = document.getElementById('availableCoursesList');
+
+            data.courses.forEach(course => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    ${course.title} - Rs${course.price}
+                    <button onclick="purchaseCourse('${course._id}')">Purchase</button>
+                `;
+                list.appendChild(li);
+            });
+        }
+        fetchCourses();
+    </script>
+</body>
+</html>
